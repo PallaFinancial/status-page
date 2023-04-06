@@ -5,19 +5,19 @@ const PALLA_SANDBOX_API_BASE_URL = "https://api.sandbox.palla.app/health";
 const PALLA_API_VER = "v1";
 const PALLA_SANDBOX_API_VER = "v1";
 
-async function genReportLog(container, key, url) {
-  const response = await fetch("logs/" + key + "_report.log");
+async function genReportLog(container, env, { key, url, label }) {
+  const response = await fetch("logs/" + env + "/" + key + "_report.log");
   let statusLines = "";
   if (response.ok) {
     statusLines = await response.text();
   }
 
   const normalized = normalizeData(statusLines);
-  const statusStream = constructStatusStream(key, url, normalized);
+  const statusStream = constructStatusStream(key, label, url, normalized);
   container.appendChild(statusStream);
 }
 
-function constructStatusStream(key, url, uptimeData) {
+function constructStatusStream(key, label, url, uptimeData) {
   let streamContainer = templatize("statusStreamContainerTemplate");
   for (var ii = maxDays - 1; ii >= 0; ii--) {
     let line = constructStatusLine(key, ii, uptimeData[ii]);
@@ -28,7 +28,7 @@ function constructStatusStream(key, url, uptimeData) {
   const color = getColor(lastSet);
 
   const container = templatize("statusContainerTemplate", {
-    title: key,
+    title: label,
     url: url,
     color: color,
     status: getStatusText(color),
@@ -243,28 +243,15 @@ function hideTooltip() {
   }, 1000);
 }
 
-function generateUrl(env, path) {
-  const baseUrl =
-    env !== "production" ? PALLA_SANDBOX_API_BASE_URL : PALLA_API_BASE_URL;
-  const apiVer = env !== "production" ? PALLA_SANDBOX_API_VER : PALLA_API_VER;
-  return `${baseUrl}/${apiVer}${path}`;
-}
-
-async function genAllReports(env = "sandbox") {
-  const response = await fetch("urls.cfg");
-  const newRes = await fetch("config.json");
-  const config = await newRes.json();
-  const configText = await response.text();
-  const configLines = configText.split("\n");
-  for (let ii = 0; ii < config.services.length; ii++) {
-    const { path, key } = config.services[ii];
-    // const [key, url] = configLine.split("=");
-    // if (!key || !url) {
-    //   continue;
-    // }
-    console.log(path, key);
-    const fullUrl = generateUrl(env, path);
-    console.log(fullUrl);
-    // await genReportLog(document.getElementById("reports"), key, url);
+async function genAllReports(env = "production") {
+  const configFile = env === "sandbox" ? "config.sandbox.json" : "config.json";
+  const res = await fetch(configFile);
+  const config = await res.json();
+  for (let ii = 0; ii < config.length; ii++) {
+    const service = config[ii];
+    if (!service) {
+      continue;
+    }
+    await genReportLog(document.getElementById("reports"), env, service);
   }
 }

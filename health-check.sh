@@ -12,58 +12,84 @@ fi
 
 KEYSARRAY=()
 URLSARRAY=()
+METHODSARRAY=()
+ENV=production
+urlsConfig="./config.json"
 
-urlsConfig="./urls.cfg"
+if [ ! -z "$1" ]; then
+  urlsConfig="./config.sandbox.json"
+  ENV=sandbox
+fi
+
 echo "Reading $urlsConfig"
-while read -r line
-do
-  echo "  $line"
-  IFS='=' read -ra TOKENS <<< "$line"
-  KEYSARRAY+=(${TOKENS[0]})
-  URLSARRAY+=(${TOKENS[1]})
-done < "$urlsConfig"
+
+echo "Generating json from $urlsConfig"
+
+config=$(cat $urlsConfig)
+
+for row in $(echo "${config}" | jq -r '.[] | @base64'); do
+    _jq() {
+     echo ${row} | base64 --decode | jq -r ${1}
+    }
+   url=$(echo $(_jq '.url'))
+   key=$(echo $(_jq '.key'))
+   method=$(echo $(_jq '.method'))
+   KEYSARRAY+=(${key})
+   URLSARRAY+=(${url})
+   METHODSARRAY+=(${method})
+done
+
 
 echo "***********************"
 echo "Starting health checks with ${#KEYSARRAY[@]} configs:"
 
-mkdir -p logs
+mkdir -p logs/production
+mkdir -p logs/sandbox
 
 for (( index=0; index < ${#KEYSARRAY[@]}; index++))
 do
   key="${KEYSARRAY[index]}"
   url="${URLSARRAY[index]}"
-  echo "  $key=$url"
+  method="${METHODSARRAY[index]}"
+
+  echo "  $key=$url=$method"
 
   for i in 1 2 3 4; 
   do
-    response=$(curl --write-out '%{http_code}' --silent --output /dev/null $url)
-    if [ "$response" -eq 200 ] || [ "$response" -eq 202 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 307 ]; then
+    response=$(curl -w "%{http_code}" -X ${method} --silent $url --header "Content-Type:application/json")
+    resStatus=$(echo ${response::-3} | jq -r '.status')
+    httpStatus=$(printf "%s" "$response" | tail -c 3)
+    if [[ ( "$httpStatus" -eq 200 ) || ( "$httpStatus" -eq 202 ) || ( "$httpStatus" -eq 301 ) || ( "$httpStatus" -eq 302 ) || ( "$httpStatus" -eq 307 ) && "$resStatus" -eq "pass" ]]; then
       result="success"
     else
       result="failed"
     fi
     if [ "$result" = "success" ]; then
       break
+    else
+      curl -X POST -H 'Content-type: application/json' -s --data '{"text":"SERVICE DOWN ALERT","blocks":[{"type":"section","block_id":"section567","text":{"type":"mrkdwn","text":"<https://https://pallafinancial.github.io/statuspage|Status Page> \nService '$key' is currently experiencing downtime."},"accessory":{"type":"image","image_url":"https://pbs.twimg.com/media/E7liAZbWQAchl5u.jpg","alt_text":"STONE COLD WITH THE FOLDING CHAIR"}}]}' $SLACK_WEBHOOK_URL
+      break
     fi
     sleep 5
   done
   dateTime=$(date +'%Y-%m-%d %H:%M')
+  echo "$resStatus"
   if [[ $commit == true ]]
   then
-    echo $dateTime, $result >> "logs/${key}_report.log"
+    echo $dateTime, $result >> "logs/${ENV}/${key}_report.log"
     # By default we keep 2000 last log entries.  Feel free to modify this to meet your needs.
-    echo "$(tail -2000 logs/${key}_report.log)" > "logs/${key}_report.log"
+    echo "$(tail -2000 logs/${ENV}/${key}_report.log)" > "logs/${ENV}/${key}_report.log"
   else
     echo "    $dateTime, $result"
   fi
 done
 
-if [[ $commit == true ]]
-then
-  # Let's make Vijaye the most productive person on GitHub.
-  git config --global user.name 'Vijaye Raji'
-  git config --global user.email 'vijaye@statsig.com'
-  git add -A --force logs/
-  git commit -am '[Automated] Update Health Check Logs'
-  git push
-fi
+# # if [[ $commit == true ]]
+# # then
+# #   # Let's make Vijaye the most productive person on GitHub.
+# #   git config --global user.name 'Vijaye Raji'
+# #   git config --global user.email 'vijaye@statsig.com'
+# #   git add -A --force logs/
+# #   git commit -am '[Automated] Update Health Check Logs'
+# #   git push
+# # fi

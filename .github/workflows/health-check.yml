@@ -5,7 +5,18 @@ on:
   schedule:
     - cron: "30 * * * *"
 
+env:
+  SLACK_WEBHOOK_URL: "{{ secrets.SLACK_WEBHOOK_URL }}"
+
 jobs:
+  health_check_job_sandbox:
+    runs-on: ubuntu-latest
+    name: Check all sites
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Shell Script
+        id: shell_script_run
+        run: bash ./health-check.sh sandbox
   health_check_job:
     runs-on: ubuntu-latest
     name: Check all sites

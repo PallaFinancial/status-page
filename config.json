@@ -1,0 +1,42 @@
+[
+  {
+    "label": "Palla Auth Email",
+    "key": "pallaAuthEmail",
+    "url": "https://api.platform.palla.app/health/v1/auth",
+    "method": "POST",
+    "meta": {
+      "tags": ["user", "auth", "POST"],
+      "description": "Begins the checkout flow authentication. Returns a temporary token used to auth and verify a phone via SMS."
+    }
+  },
+  {
+    "label": "Palla Auth Phone",
+    "key": "pallaAuthPhone",
+    "url": "https://api.platform.palla.app/health/v1/auth",
+    "method": "POST",
+    "meta": {
+      "tags": ["user", "auth", "POST"],
+      "description": "Add a phone for SMS authentication."
+    }
+  },
+  {
+    "label": "Palla Auth Verify",
+    "key": "pallaAuthVerify",
+    "url": "https://api.platform.palla.app/health/v1/auth/verify",
+    "method": "POST",
+    "meta": {
+      "tags": ["user", "auth", "POST"],
+      "description": "Verify the OOB code sent to the user. On success, receive an access token."
+    }
+  },
+  {
+    "label": "Palla Token Upgrade",
+    "key": "pallaTokenUpgrade",
+    "url": "https://api.platform.palla.app/health/v1/auth",
+    "method": "POST",
+    "meta": {
+      "tags": ["user", "auth", "POST"],
+      "description": "Updates an existing token's scope."
+    }
+  }
+]
