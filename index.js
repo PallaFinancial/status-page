@@ -1,5 +1,10 @@
 const maxDays = 30;
 
+const PALLA_API_BASE_URL = "https://api.platform.palla.app/health";
+const PALLA_SANDBOX_API_BASE_URL = "https://api.sandbox.palla.app/health";
+const PALLA_API_VER = "v1";
+const PALLA_SANDBOX_API_VER = "v1";
+
 async function genReportLog(container, key, url) {
   const response = await fetch("logs/" + key + "_report.log");
   let statusLines = "";
@@ -183,7 +188,9 @@ function splitRowsByDate(rows) {
     }
 
     const [dateTimeStr, resultStr] = row.split(",", 2);
-    const dateTime = new Date(Date.parse(dateTimeStr.replace(/-/g, "/") + " GMT"));
+    const dateTime = new Date(
+      Date.parse(dateTimeStr.replace(/-/g, "/") + " GMT")
+    );
     const dateStr = dateTime.toDateString();
 
     let resultArray = dateValues[dateStr];
@@ -236,17 +243,28 @@ function hideTooltip() {
   }, 1000);
 }
 
-async function genAllReports() {
+function generateUrl(env, path) {
+  const baseUrl =
+    env !== "production" ? PALLA_SANDBOX_API_BASE_URL : PALLA_API_BASE_URL;
+  const apiVer = env !== "production" ? PALLA_SANDBOX_API_VER : PALLA_API_VER;
+  return `${baseUrl}/${apiVer}${path}`;
+}
+
+async function genAllReports(env = "sandbox") {
   const response = await fetch("urls.cfg");
+  const newRes = await fetch("config.json");
+  const config = await newRes.json();
   const configText = await response.text();
   const configLines = configText.split("\n");
-  for (let ii = 0; ii < configLines.length; ii++) {
-    const configLine = configLines[ii];
-    const [key, url] = configLine.split("=");
-    if (!key || !url) {
-      continue;
-    }
-
-    await genReportLog(document.getElementById("reports"), key, url);
+  for (let ii = 0; ii < config.services.length; ii++) {
+    const { path, key } = config.services[ii];
+    // const [key, url] = configLine.split("=");
+    // if (!key || !url) {
+    //   continue;
+    // }
+    console.log(path, key);
+    const fullUrl = generateUrl(env, path);
+    console.log(fullUrl);
+    // await genReportLog(document.getElementById("reports"), key, url);
   }
 }
