@@ -10,12 +10,12 @@ env:
   GIT_USER_NAME: "Michael Monahan"
   GIT_USER_EMAIL: "mike@palla.app"
 
-permissions: read-all|write-all
+permissions: write-all
 
 jobs:
   health_check_job_sandbox:
     runs-on: ubuntu-latest
-    name: Check all sites
+    name: Health Check (Sandbox)
     steps:
       - uses: actions/checkout@v2
       - name: Run Shell Script
@@ -23,7 +23,7 @@ jobs:
         run: bash ./health-check.sh sandbox
   health_check_job:
     runs-on: ubuntu-latest
-    name: Check all sites
+    name: Health Check
     steps:
       - uses: actions/checkout@v2
       - name: Run Shell Script
