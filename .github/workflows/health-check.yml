@@ -8,6 +8,8 @@ on:
 env:
   SLACK_WEBHOOK_URL: "{{ secrets.SLACK_WEBHOOK_URL }}"
 
+permissions: read-all|write-all
+
 jobs:
   health_check_job_sandbox:
     runs-on: ubuntu-latest
