@@ -7,6 +7,8 @@ on:
 
 env:
   SLACK_WEBHOOK_URL: "{{ secrets.SLACK_WEBHOOK_URL }}"
+  GIT_USER_NAME: "Michael Monahan"
+  GIT_USER_EMAIL: "mike@palla.app"
 
 permissions: read-all|write-all
 
