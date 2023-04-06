@@ -67,7 +67,7 @@ do
     if [ "$result" = "success" ]; then
       break
     else
-      curl -X POST -H 'Content-type: application/json' -s --data '{"text":"SERVICE DOWN ALERT","blocks":[{"type":"section","block_id":"section567","text":{"type":"mrkdwn","text":"<https://https://pallafinancial.github.io/statuspage|Status Page> \nService '$key' is currently experiencing downtime."},"accessory":{"type":"image","image_url":"https://pbs.twimg.com/media/E7liAZbWQAchl5u.jpg","alt_text":"STONE COLD WITH THE FOLDING CHAIR"}}]}' $SLACK_WEBHOOK_URL
+      curl -X POST -H 'Content-type: application/json' -s --data '{"text":"SERVICE DOWN ALERT","blocks":[{"type":"section","block_id":"section567","text":{"type":"mrkdwn","text":"<https://pallafinancial.github.io/statuspage|Status Page> \nService '$key' is currently experiencing downtime."},"accessory":{"type":"image","image_url":"https://pbs.twimg.com/media/E7liAZbWQAchl5u.jpg","alt_text":"STONE COLD WITH THE FOLDING CHAIR"}}]}' $SLACK_WEBHOOK_URL
       break
     fi
     sleep 5
@@ -84,12 +84,12 @@ do
   fi
 done
 
-# # if [[ $commit == true ]]
-# # then
-# #   # Let's make Vijaye the most productive person on GitHub.
-# #   git config --global user.name 'Vijaye Raji'
-# #   git config --global user.email 'vijaye@statsig.com'
-# #   git add -A --force logs/
-# #   git commit -am '[Automated] Update Health Check Logs'
-# #   git push
-# # fi
+if [[ $commit == true ]]
+then
+  # Let's make Vijaye the most productive person on GitHub.
+  git config --global user.name 'Vijaye Raji'
+  git config --global user.email 'vijaye@statsig.com'
+  git add -A --force logs/
+  git commit -am '[Automated] Update Health Check Logs'
+  git push
+fi
