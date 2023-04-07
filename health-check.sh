@@ -80,7 +80,7 @@ do
     fi
     sleep 5
   done
-  dateTime=$(TZ=AMerica/New_York date +'%Y-%m-%d %H:%M')
+  dateTime=$(TZ=America/New_York date +'%Y-%m-%d %H:%M')
   if [[ $commit == true ]]
   then
     echo $dateTime, $result >> "logs/${env}/${type}/${key}_report.log"

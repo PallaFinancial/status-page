@@ -3,7 +3,7 @@ name: Scheduled Health Check
 # Controls when the action will run.
 on:
   schedule:
-    - cron: "*/3 * * * *"
+    - cron: "*/30 * * * *"
 
 env:
   SLACK_WEBHOOK_URL: "{{ secrets.SLACK_WEBHOOK_URL }}"
