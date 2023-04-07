@@ -41,7 +41,6 @@ for row in $(echo "${config}" | jq -r '.[] | @base64'); do
    TYPESARRAY+=(${type})
 done
 
-echo "${#ENVARRAY[@]}"
 echo "***********************"
 echo "Starting health checks with ${#KEYSARRAY[@]} configs:"
 
@@ -64,8 +63,7 @@ do
   do
     response=$(curl -w "%{http_code}" -X ${method} --silent $url --header "Content-Type:application/json")
     httpStatus=$(printf "%s" "$response" | tail -c 3)
-    
-    if [ "$type" -eq "web" ]; then
+    if [ "$type" = "web" ]; then
       break
     else
       resStatus=$(echo ${response::-3} | jq -r '.status')
@@ -85,7 +83,6 @@ do
     sleep 5
   done
   dateTime=$(date +'%Y-%m-%d %H:%M')
-  echo "$resStatus"
   if [[ $commit == true ]]
   then
     echo $dateTime, $result >> "logs/${env}/${type}/${key}_report.log"
@@ -96,12 +93,12 @@ do
   fi
 done
 
-if [[ $commit == true ]]
-then
-  # Let's make Vijaye the most productive person on GitHub.
-  git config --global user.name $GIT_USER_NAME
-  git config --global user.email $GIT_USER_EMAIL
-  git add -A --force logs/
-  git commit -am '[Automated] Update Health Check Logs'
-  git push
-fi
+# if [[ $commit == true ]]
+# then
+#   # Let's make Vijaye the most productive person on GitHub.
+#   git config --global user.name $GIT_USER_NAME
+#   git config --global user.email $GIT_USER_EMAIL
+#   git add -A --force logs/
+#   git commit -am '[Automated] Update Health Check Logs'
+#   git push
+# fi
