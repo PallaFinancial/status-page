@@ -5,6 +5,14 @@ const PALLA_SANDBOX_API_BASE_URL = "https://api.sandbox.palla.app/health";
 const PALLA_API_VER = "v1";
 const PALLA_SANDBOX_API_VER = "v1";
 
+function genReportSection(container, title) {
+  console.log("section run");
+  const sectionHeader = constructSection(title);
+  if (!sectionHeader) return;
+  sectionHeader.style.display = "flex";
+  container.appendChild(sectionHeader);
+}
+
 async function genReportLog(container, env, { key, url, label, method, type }) {
   const response = await fetch(
     "logs/" + env + "/" + type + "/" + key + "_report.log"
@@ -25,6 +33,12 @@ async function genReportLog(container, env, { key, url, label, method, type }) {
     normalized
   );
   container.appendChild(statusStream);
+}
+
+function constructSection(title) {
+  return templatize("sectionTemplate", {
+    section_title: title.toUpperCase(),
+  });
 }
 
 function constructStatusStream(key, label, url, type, method, uptimeData) {
@@ -278,21 +292,29 @@ function setEnv() {
   return { env, partnerId };
 }
 
-async function genAllReports() {
+async function genServiceReport(services, section) {
   const { env, partnerId } = setEnv();
-  const res = await fetch("config.json");
-  const config = await res.json();
+  if (!services || (services && services.length < 1)) return;
+  const reportsEl = document.getElementById("reports");
 
-  for (let ii = 0; ii < config.length; ii++) {
-    const service = config[ii];
+  genReportSection(reportsEl, section);
+
+  for (let ii = 0; ii < services.length; ii++) {
+    const service = services[ii];
     if (!service || (service && service.env !== env)) {
       continue;
     }
-    await genReportLog(
-      document.getElementById("reports"),
-      env,
-      service,
-      partnerId
-    );
+    await genReportLog(reportsEl, env, service, partnerId);
   }
+}
+
+async function genAllReports() {
+  const res = await fetch("config.json");
+  const config = await res.json();
+
+  const apiServices = config.filter((item) => item.meta.tags.includes("api"));
+  const webServices = config.filter((item) => item.meta.tags.includes("web"));
+
+  await genServiceReport(webServices, "web");
+  await genServiceReport(apiServices, "api");
 }

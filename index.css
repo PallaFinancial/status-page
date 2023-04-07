@@ -129,6 +129,7 @@ footer a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .headline span {
@@ -140,6 +141,19 @@ footer a {
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.sectionContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: 1px solid lightgrey;
+  margin-bottom: 30px;
+}
+
+.sectionContainer h2 {
+  font-size: 20px;
 }
 
 .reportContainer {
@@ -347,7 +361,8 @@ footer a {
   }
 
   .headline img {
-    width: 40%
+    width: 40%;
+    max-width: 160px;
   }
 
   .statusHeadline,
