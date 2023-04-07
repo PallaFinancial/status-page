@@ -7,8 +7,11 @@ html {
   display: flex;
   flex-direction: column;
 }
+
 body {
-  background-color: #f5f6f8;
+  margin: 0;
+  padding: 0;
+  background-color: #091334;
   color: #3b3b3b;
   font-size: 14px;
   font-weight: 300;
@@ -21,6 +24,7 @@ body {
   text-align: center;
   transition: opacity 0.3s;
 }
+
 h1,
 h2,
 h3,
@@ -44,18 +48,21 @@ h1 {
   font-weight: bold;
   margin: 0px;
 }
+
 h2 {
   color: #3b3b3b;
   font-size: 28px;
   font-weight: bold;
   margin: 16px 0 8px 0;
 }
+
 h3 {
   color: #3b3b3b;
   font-size: 24px;
   font-weight: 700;
   margin: 8px 0 4px 0;
 }
+
 h4 {
   color: #3b3b3b;
   font-size: 18px;
@@ -63,6 +70,7 @@ h4 {
   margin-top: 5px;
   margin-bottom: 4px;
 }
+
 h5 {
   color: #3b3b3b;
   font-size: 16px;
@@ -70,6 +78,7 @@ h5 {
   margin-top: 5px;
   margin-bottom: 4px;
 }
+
 h6 {
   color: #3b3b3b;
   font-size: 16px;
@@ -77,6 +86,7 @@ h6 {
   margin-top: 5px;
   margin-bottom: 4px;
 }
+
 a {
   color: #194b7d;
   text-decoration: none;
@@ -112,27 +122,28 @@ footer a {
   border-radius: 5px;
   max-width: 900px;
   width: 100%;
-  margin: 96px auto;
+  margin: 40px auto;
 }
 
 .headline {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .headline span {
-  background-color: #f5f6f8;
+  background-color: #393EA5;
+  color: #fff;
   border-radius: 5px;
-  padding: 6px;
-  margin-left: 12px;
+  padding: 8px 10px;
+  margin-left: 30px;
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .reportContainer {
-  margin: 30px auto;
+  margin: 30px auto 0;
   width: 100%;
 }
 
@@ -144,7 +155,7 @@ footer a {
   padding: 24px;
 }
 
-.statusContainer + .statusContainer {
+.statusContainer+.statusContainer {
   border-top: 1px solid #eee;
   margin-top: 30px;
 }
@@ -161,7 +172,7 @@ footer a {
   width: 100%;
 }
 
-.statusSquare + .statusSquare {
+.statusSquare+.statusSquare {
   margin-left: 6px;
 }
 
@@ -177,7 +188,8 @@ footer a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 2px;
+  padding-bottom: 25px;
+  justify-content: space-between;
 }
 
 .statusSubtitle {
@@ -190,7 +202,7 @@ footer a {
 .statusHeadline {
   color: #eee;
   padding: 4px 8px;
-  border-radius: 15px;
+  border-radius: 5px;
   font-size: 12px;
   font-weight: 700;
   margin-left: 12px;
@@ -238,6 +250,7 @@ footer a {
 }
 
 .tooltip {
+  display: none;
   background-color: #fff;
   box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
   border-radius: 4px;
@@ -296,32 +309,66 @@ footer a {
   margin-top: 16px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 915px) {
   .pageContainer {
-    padding: 30px 20px;
-    margin: 0 auto 40px auto;
+    border-radius: 0;
+    padding: 30px 10px;
+    margin: 0;
+    /* margin: 0 auto 40px auto; */
   }
 
-  .statusHeader,
-  .statusSubtitle {
-    display: block;
+  .headline {
+    padding: 0;
+    width: 100%;
+  }
+
+  .headline span {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+
+  .headline img {
+    width: 40%
   }
 
   .statusHeadline,
   .sectionUrl,
   .statusUptime {
     margin-left: 0;
-    margin-top: 8px;
     text-align: left;
   }
 
-  .statusTitle,
-  .statusHeadline {
-    display: inline-block;
+  .statusContainer {
+    padding: 15px;
   }
 
-  .statusSquare + .statusSquare {
+  .statusSubtitle {
+    margin-top: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .sectionUrl a {
+    font-size: 12px;
+  }
+
+  .sectionSubtitle div {
+    font-size: 10px;
+  }
+
+  .statusHeader {
+    padding-bottom: 10px;
+  }
+
+  .statusTitle {
+    font-size: 12px;
+  }
+
+  .statusSquare+.statusSquare {
     margin-left: 1px;
+    font-size: 10px;
   }
 
   .statusSquare {

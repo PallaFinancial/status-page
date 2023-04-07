@@ -5,8 +5,10 @@ const PALLA_SANDBOX_API_BASE_URL = "https://api.sandbox.palla.app/health";
 const PALLA_API_VER = "v1";
 const PALLA_SANDBOX_API_VER = "v1";
 
-async function genReportLog(container, env, { key, url, label }) {
-  const response = await fetch("logs/" + env + "/" + key + "_report.log");
+async function genReportLog(container, env, { key, url, label, type }) {
+  const response = await fetch(
+    "logs/" + env + "/" + type + "/" + key + "_report.log"
+  );
   let statusLines = "";
   if (response.ok) {
     statusLines = await response.text();
@@ -243,15 +245,41 @@ function hideTooltip() {
   }, 1000);
 }
 
-async function genAllReports(env = "production") {
-  const configFile = env === "sandbox" ? "config.sandbox.json" : "config.json";
-  const res = await fetch(configFile);
+function validatePartnerId(id) {
+  return ["palla.app", "test.partner"].includes(id.toLowerCase());
+}
+
+function validateEnv(env) {
+  return ["production", "sandbox"].includes(env.toLowerCase());
+}
+
+function setEnv() {
+  let env = "production";
+  let partnerId = "palla.app";
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  if (params.partnerId && validatePartnerId(params.partnerId))
+    partnerId = params.partnerId;
+  if (params.env && validateEnv(params.env)) env = params.env;
+  return { env, partnerId };
+}
+
+async function genAllReports() {
+  const { env, partnerId } = setEnv();
+  const res = await fetch("config.json");
   const config = await res.json();
+
   for (let ii = 0; ii < config.length; ii++) {
     const service = config[ii];
     if (!service) {
       continue;
     }
-    await genReportLog(document.getElementById("reports"), env, service);
+    await genReportLog(
+      document.getElementById("reports"),
+      env,
+      service,
+      partnerId
+    );
   }
 }

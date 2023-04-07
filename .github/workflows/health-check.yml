@@ -13,14 +13,6 @@ env:
 permissions: write-all
 
 jobs:
-  health_check_job_sandbox:
-    runs-on: ubuntu-latest
-    name: Health Check (Sandbox)
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run Shell Script
-        id: shell_script_run
-        run: bash ./health-check.sh sandbox
   health_check_job:
     runs-on: ubuntu-latest
     name: Health Check
