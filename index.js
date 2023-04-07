@@ -5,7 +5,7 @@ const PALLA_SANDBOX_API_BASE_URL = "https://api.sandbox.palla.app/health";
 const PALLA_API_VER = "v1";
 const PALLA_SANDBOX_API_VER = "v1";
 
-async function genReportLog(container, env, { key, url, label, type }) {
+async function genReportLog(container, env, { key, url, label, method, type }) {
   const response = await fetch(
     "logs/" + env + "/" + type + "/" + key + "_report.log"
   );
@@ -16,11 +16,18 @@ async function genReportLog(container, env, { key, url, label, type }) {
   }
 
   const normalized = normalizeData(statusLines);
-  const statusStream = constructStatusStream(key, label, url, type, normalized);
+  const statusStream = constructStatusStream(
+    key,
+    label,
+    url,
+    type,
+    method,
+    normalized
+  );
   container.appendChild(statusStream);
 }
 
-function constructStatusStream(key, label, url, type, uptimeData) {
+function constructStatusStream(key, label, url, type, method, uptimeData) {
   let streamContainer = templatize("statusStreamContainerTemplate");
   for (var ii = maxDays - 1; ii >= 0; ii--) {
     let line = constructStatusLine(key, ii, uptimeData[ii]);
@@ -34,6 +41,7 @@ function constructStatusStream(key, label, url, type, uptimeData) {
     title: label,
     url: url,
     color: color,
+    method: method,
     src: `${type}.svg`,
     status: getStatusText(color),
     upTime: uptimeData.upTime,
