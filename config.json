@@ -1,17 +1,5 @@
 [
   {
-    "label": "Palla Auth Email",
-    "key": "pallaAuthEmail",
-    "url": "https://api.platform.palla.app/health/v1/auth",
-    "method": "POST",
-    "env": "production",
-    "type": "api",
-    "meta": {
-      "tags": ["user", "auth", "POST", "production", "api"],
-      "description": "Begins the checkout flow authentication. Returns a temporary token used to auth and verify a phone via SMS."
-    }
-  },
-  {
     "label": "Palla Checkout Web",
     "key": "pallaCheckoutWeb",
     "url": "https://checkout.palla.app",
@@ -21,6 +9,18 @@
     "meta": {
       "tags": ["web", "production", "partner", "palla.app"],
       "description": "Checkout page for palla.app partner"
+    }
+  },
+  {
+    "label": "Palla Auth Email",
+    "key": "pallaAuthEmail",
+    "url": "https://api.platform.palla.app/health/v1/auth",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["user", "auth", "POST", "production", "api"],
+      "description": "Begins the checkout flow authentication. Returns a temporary token used to auth and verify a phone via SMS."
     }
   },
   {
@@ -62,7 +62,7 @@
   {
     "label": "Palla Auth Email",
     "key": "pallaAuthEmail",
-    "url": "https://api.platform.palla.app/health/v1/auth",
+    "url": "https://api.integration.palla.app/health/v1/auth",
     "method": "POST",
     "env": "sandbox",
     "type": "api",
@@ -74,7 +74,7 @@
   {
     "label": "Palla Auth Phone",
     "key": "pallaAuthPhone",
-    "url": "https://api.platform.palla.app/health/v1/auth",
+    "url": "https://api.integration.palla.app/health/v1/auth",
     "method": "POST",
     "env": "sandbox",
     "type": "api",
@@ -86,7 +86,7 @@
   {
     "label": "Palla Auth Verify",
     "key": "pallaAuthVerify",
-    "url": "https://api.platform.palla.app/health/v1/auth/verify",
+    "url": "https://api.integration.palla.app/health/v1/auth/verify",
     "method": "POST",
     "env": "sandbox",
     "type": "api",
@@ -98,7 +98,7 @@
   {
     "label": "Palla Token Upgrade",
     "key": "pallaTokenUpgrade",
-    "url": "https://api.platform.palla.app/health/v1/auth",
+    "url": "https://api.integration.palla.app/health/v1/auth",
     "method": "POST",
     "env": "sandbox",
     "type": "api",

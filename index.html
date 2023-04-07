@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Status Page</title>
+  <title>Palla Systems Status Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="index.css" />
   <script src="index.js"></script>
@@ -29,7 +29,10 @@
     <div id="statusStreamContainerTemplate" class="statusStreamContainer"></div>
     <div id="statusContainerTemplate" class="statusContainer">
       <div class="statusHeader">
-        <h6 class="statusTitle">$title&nbsp;</h6>
+        <div id="statusTitleContainer" class="statusTitleContainer">
+          <h6 class="statusTitle">$title&nbsp;</h6>
+          <img class="statusTitleIcon" alt="icon" />
+        </div>
         <div class="$color statusHeadline">$status</div>
       </div>
       <div class="statusSubtitle">

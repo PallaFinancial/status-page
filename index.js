@@ -9,17 +9,18 @@ async function genReportLog(container, env, { key, url, label, type }) {
   const response = await fetch(
     "logs/" + env + "/" + type + "/" + key + "_report.log"
   );
+
   let statusLines = "";
   if (response.ok) {
     statusLines = await response.text();
   }
 
   const normalized = normalizeData(statusLines);
-  const statusStream = constructStatusStream(key, label, url, normalized);
+  const statusStream = constructStatusStream(key, label, url, type, normalized);
   container.appendChild(statusStream);
 }
 
-function constructStatusStream(key, label, url, uptimeData) {
+function constructStatusStream(key, label, url, type, uptimeData) {
   let streamContainer = templatize("statusStreamContainerTemplate");
   for (var ii = maxDays - 1; ii >= 0; ii--) {
     let line = constructStatusLine(key, ii, uptimeData[ii]);
@@ -33,6 +34,7 @@ function constructStatusStream(key, label, url, uptimeData) {
     title: label,
     url: url,
     color: color,
+    src: `${type}.svg`,
     status: getStatusText(color),
     upTime: uptimeData.upTime,
   });
@@ -96,6 +98,9 @@ function applyTemplateSubstitutions(node, parameters) {
 
   if (node.childElementCount == 0) {
     node.innerText = templatizeString(node.innerText, parameters);
+    if (node.className === "statusTitleIcon") {
+      node.src = parameters.src;
+    }
   } else {
     const children = Array.from(node.children);
     children.forEach((n) => {
@@ -272,7 +277,7 @@ async function genAllReports() {
 
   for (let ii = 0; ii < config.length; ii++) {
     const service = config[ii];
-    if (!service) {
+    if (!service || (service && service.env !== env)) {
       continue;
     }
     await genReportLog(
