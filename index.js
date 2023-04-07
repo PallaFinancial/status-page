@@ -297,7 +297,7 @@ async function genServiceReport(services, section) {
   if (!services || (services && services.length < 1)) return;
   const reportsEl = document.getElementById("reports");
 
-  genReportSection(reportsEl, section);
+  if (services.length > 0) genReportSection(reportsEl, section);
 
   for (let ii = 0; ii < services.length; ii++) {
     const service = services[ii];
