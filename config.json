@@ -12,6 +12,18 @@
     }
   },
   {
+    "label": "Palla Checkout Web Sandbox",
+    "key": "pallaCheckoutWebSandbox",
+    "url": "https://palla-checkout-develop.vercel.app",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "web",
+    "meta": {
+      "tags": ["web", "sandbox", "partner", "palla.app"],
+      "description": "Checkout page for palla.app partner"
+    }
+  },
+  {
     "label": "Palla Auth Email",
     "key": "pallaAuthEmail",
     "url": "https://api.platform.palla.app/health/v1/auth",

@@ -293,8 +293,8 @@ function setEnv() {
 }
 
 async function genServiceReport(services, section) {
-  const { env, partnerId } = setEnv();
   if (!services || (services && services.length < 1)) return;
+  const { env, partnerId } = setEnv();
   const reportsEl = document.getElementById("reports");
 
   genReportSection(reportsEl, section);
