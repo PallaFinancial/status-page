@@ -277,7 +277,7 @@ function validatePartnerId(id) {
 }
 
 function validateEnv(env) {
-  return ["production", "sandbox"].includes(env.toLowerCase());
+  return ["production", "sandbox", "live-test"].includes(env.toLowerCase());
 }
 
 function setEnv() {
