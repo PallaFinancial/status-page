@@ -46,6 +46,8 @@ echo "Starting health checks with ${#KEYSARRAY[@]} configs:"
 
 mkdir -p "logs/production/api"
 mkdir -p "logs/production/web"
+mkdir -p "logs/live-test/api"
+mkdir -p "logs/live-test/web"
 mkdir -p "logs/sandbox/api"
 mkdir -p "logs/sandbox/web"
 
@@ -91,11 +93,11 @@ do
   fi
 done
 
-if [[ $commit == true ]]
-then
-  git config --global user.name $GIT_USER_NAME
-  git config --global user.email $GIT_USER_EMAIL
-  git add -A --force logs/
-  git commit -am '[Automated] Update Health Check Logs'
-  git push
-fi
+# if [[ $commit == true ]]
+# then
+#   git config --global user.name $GIT_USER_NAME
+#   git config --global user.email $GIT_USER_EMAIL
+#   git add -A --force logs/
+#   git commit -am '[Automated] Update Health Check Logs'
+#   git push
+# fi

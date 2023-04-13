@@ -280,7 +280,7 @@ function validateEnv(env) {
   return ["production", "sandbox", "live-test"].includes(env.toLowerCase());
 }
 
-function setEnv() {
+function getEnv() {
   let env = "production";
   let partnerId = "palla.app";
   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -294,7 +294,7 @@ function setEnv() {
 
 async function genServiceReport(services, section) {
   if (!services || (services && services.length < 1)) return;
-  const { env, partnerId } = setEnv();
+  const { env, partnerId } = getEnv();
   const reportsEl = document.getElementById("reports");
 
   genReportSection(reportsEl, section);
@@ -317,4 +317,16 @@ async function genAllReports() {
 
   await genServiceReport(webServices, "web");
   await genServiceReport(apiServices, "api");
+}
+
+function onTabClick(evt, env) {
+  console.log(evt, env, window.location.search);
+  if (`?env=${env}` === window.location.search) return;
+  window.location = window.location.origin + `?env=${env}`;
+}
+
+function setTabStyle() {
+  const { env } = getEnv();
+  const el = document.getElementById(`${env}Tab`);
+  el.className = el.className += " active";
 }
