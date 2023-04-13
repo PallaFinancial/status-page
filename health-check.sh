@@ -58,6 +58,7 @@ do
   method="${METHODSARRAY[index]}"
   env="${ENVARRAY[index]}"
   type="${TYPESARRAY[index]}"
+  key="$key$KEYSARRAY[index]"
 
   echo "  $key=$url=$method"
 

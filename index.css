@@ -197,19 +197,18 @@ footer a {
 }
 
 .statusMethod {
-  padding: 4px 8px;
   color: #000;
   font-weight: bold;
-  border-radius: 5px;
-  margin-left: 10px;
 }
 
 .statusTitleContainer {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .statusTitleIcon {
+  display: none;
   width: 20px;
   margin-left: 10px;
 }
@@ -391,6 +390,16 @@ footer a {
   .statusUptime {
     margin-left: 0;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .statusHeadline {
+    width: 45%;
+    text-align: center;
+    margin-bottom: 10px;
+    max-width: 150px;
   }
 
   .statusContainer {
@@ -407,6 +416,12 @@ footer a {
 
   .sectionUrl a {
     font-size: 12px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    display: block;
   }
 
   .sectionSubtitle div {
@@ -419,6 +434,12 @@ footer a {
 
   .statusTitle {
     font-size: 12px;
+    flex: 2;
+  }
+
+  .statusMethod {
+    flex: 1;
+    font-size: 12px;
   }
 
   .statusSquare+.statusSquare {
@@ -429,5 +450,9 @@ footer a {
   .statusSquare {
     min-width: 4px;
     width: 100%;
+  }
+
+  .statusTitleContainer {
+    flex: 1;
   }
 }
