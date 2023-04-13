@@ -5,12 +5,15 @@ const PALLA_SANDBOX_API_BASE_URL = "https://api.sandbox.palla.app/health";
 const PALLA_API_VER = "v1";
 const PALLA_SANDBOX_API_VER = "v1";
 
-function genReportSection(container, title) {
-  console.log("section run");
+function genReportSection(container, title, type) {
   const sectionHeader = constructSection(title);
+  if (type === "sub") {
+    sectionHeader.style = "border: none; margin-bottom: 0;";
+  }
   if (!sectionHeader) return;
   sectionHeader.style.display = "flex";
   container.appendChild(sectionHeader);
+  return sectionHeader;
 }
 
 async function genReportLog(container, env, { key, url, label, method, type }) {
@@ -55,7 +58,7 @@ function constructStatusStream(key, label, url, type, method, uptimeData) {
     title: label,
     url: url,
     color: color,
-    method: method,
+    method: `[ ${method} ]`,
     src: `${type}.svg`,
     status: getStatusText(color),
     upTime: uptimeData.upTime,
@@ -299,13 +302,51 @@ async function genServiceReport(services, section) {
 
   genReportSection(reportsEl, section);
 
-  for (let ii = 0; ii < services.length; ii++) {
-    const service = services[ii];
-    if (!service || (service && service.env !== env)) {
-      continue;
+  if (section === "web") {
+    for (let ii = 0; ii < services.length; ii++) {
+      const service = services[ii];
+      if (!service || (service && service.env !== env)) {
+        continue;
+      }
+      await genReportLog(reportsEl, env, service, partnerId);
     }
-    await genReportLog(reportsEl, env, service, partnerId);
+    return;
   }
+
+  const subServices = services.reduce(
+    (acc, service) => {
+      if (service.meta.tags.includes("auth")) {
+        acc.auth.push(service);
+      } else if (service.meta.tags.includes("accounts")) {
+        acc.accounts.push(service);
+      } else if (service.meta.tags.includes("links")) {
+        acc.links.push(service);
+      } else {
+        acc.transfers.push(service);
+      }
+      return acc;
+    },
+    {
+      auth: [],
+      accounts: [],
+      links: [],
+      transfers: [],
+    }
+  );
+
+  Object.keys(subServices).map(async (subService) => {
+    const sectionEl = genReportSection(reportsEl, subService, "sub");
+    for (let ii = 0; ii < subServices[subService].length; ii++) {
+      const service = subServices[subService][ii];
+      if (!service || (service && service.env !== env)) {
+        continue;
+      }
+      const containerEl = document.createElement("div");
+      containerEl.style = "padding: 10px 0";
+      sectionEl.parentNode.insertBefore(containerEl, sectionEl.nextSibling);
+      await genReportLog(containerEl, env, service, partnerId);
+    }
+  });
 }
 
 async function genAllReports() {
@@ -319,8 +360,7 @@ async function genAllReports() {
   await genServiceReport(apiServices, "api");
 }
 
-function onTabClick(evt, env) {
-  console.log(evt, env, window.location.search);
+function onTabClick(_, env) {
   if (`?env=${env}` === window.location.search) return;
   window.location = window.location.origin + `?env=${env}`;
 }

@@ -197,9 +197,8 @@ footer a {
 }
 
 .statusMethod {
-  background-color: #393EA5;
   padding: 4px 8px;
-  color: #fff;
+  color: #000;
   font-weight: bold;
   border-radius: 5px;
   margin-left: 10px;
