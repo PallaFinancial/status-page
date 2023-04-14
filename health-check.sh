@@ -58,7 +58,6 @@ do
   method="${METHODSARRAY[index]}"
   env="${ENVARRAY[index]}"
   type="${TYPESARRAY[index]}"
-  key="$key$KEYSARRAY[index]"
 
   echo "  $key=$url=$method"
 
@@ -72,6 +71,8 @@ do
 
     if [[ ( "$httpStatus" -eq 200 ) || ( "$httpStatus" -eq 202 ) || ( "$httpStatus" -eq 301 ) || ( "$httpStatus" -eq 302 ) || ( "$httpStatus" -eq 307 ) && ("$type" -eq "api" && "$resStatus" -eq "pass") ]]; then
       result="success"
+    elif [[ ( "$httpStatus" -eq 200 ) || ( "$httpStatus" -eq 202 ) || ( "$httpStatus" -eq 301 ) || ( "$httpStatus" -eq 302 ) || ( "$httpStatus" -eq 307 ) && ("$type" -eq "api" && "$resStatus" -eq "warn") ]]; then
+      result="warn"
     else
       result="failed"
     fi

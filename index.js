@@ -5,11 +5,8 @@ const PALLA_SANDBOX_API_BASE_URL = "https://api.sandbox.palla.app/health";
 const PALLA_API_VER = "v1";
 const PALLA_SANDBOX_API_VER = "v1";
 
-function genReportSection(container, title, type) {
+function genReportSection(container, title) {
   const sectionHeader = constructSection(title);
-  if (type === "sub") {
-    sectionHeader.style = "border: none; margin-bottom: 0;";
-  }
   if (!sectionHeader) return;
   sectionHeader.style.display = "flex";
   container.appendChild(sectionHeader);
@@ -82,7 +79,7 @@ function getColor(uptimeVal) {
     ? "success"
     : uptimeVal < 0.3
     ? "failure"
-    : "partial";
+    : "warn";
 }
 
 function constructStatusSquare(key, date, uptimeVal) {
@@ -150,7 +147,7 @@ function getStatusText(color) {
     ? "Fully Operational"
     : color == "failure"
     ? "Major Outage"
-    : color == "partial"
+    : color == "warn"
     ? "Partial Outage"
     : "Unknown";
 }
@@ -162,7 +159,7 @@ function getStatusDescriptiveText(color) {
     ? "No downtime recorded on this day."
     : color == "failure"
     ? "Major outages recorded on this day."
-    : color == "partial"
+    : color == "warn"
     ? "Partial outages recorded on this day."
     : "Unknown";
 }
@@ -334,19 +331,18 @@ async function genServiceReport(services, section) {
     }
   );
 
-  Object.keys(subServices).map(async (subService) => {
-    const sectionEl = genReportSection(reportsEl, subService, "sub");
-    for (let ii = 0; ii < subServices[subService].length; ii++) {
-      const service = subServices[subService][ii];
-      if (!service || (service && service.env !== env)) {
-        continue;
-      }
-      const containerEl = document.createElement("div");
-      containerEl.style = "padding: 10px 0";
-      sectionEl.parentNode.insertBefore(containerEl, sectionEl.nextSibling);
-      await genReportLog(containerEl, env, service, partnerId);
-    }
-  });
+  // Object.keys(subServices).map(async (subService) => {
+  //   for (let ii = 0; ii < subServices[subService].length; ii++) {
+  //     const service = subServices[subService][ii];
+  //     if (!service || (service && service.env !== env)) {
+  //       continue;
+  //     }
+  //     const containerEl = document.createElement("div");
+  //     containerEl.style = "padding: 10px 0";
+  //     sectionEl.parentNode.insertBefore(containerEl, sectionEl.nextSibling);
+  //     await genReportLog(containerEl, env, service, partnerId);
+  //   }
+  // });
 }
 
 async function genAllReports() {
@@ -362,7 +358,7 @@ async function genAllReports() {
 
 function onTabClick(_, env) {
   if (`?env=${env}` === window.location.search) return;
-  window.location = window.location.origin + `?env=${env}`;
+  window.location.search = `env=${env}`;
 }
 
 function setTabStyle() {
