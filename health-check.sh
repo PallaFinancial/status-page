@@ -95,11 +95,11 @@ do
   fi
 done
 
-# if [[ $commit == true ]]
-# then
-#   git config --global user.name $GIT_USER_NAME
-#   git config --global user.email $GIT_USER_EMAIL
-#   git add -A --force logs/
-#   git commit -am '[Automated] Update Health Check Logs'
-#   git push
-# fi
+if [[ $commit == true ]]
+then
+  git config --global user.name $GIT_USER_NAME
+  git config --global user.email $GIT_USER_EMAIL
+  git add -A --force logs/
+  git commit -am '[Automated] Update Health Check Logs'
+  git push
+fi
