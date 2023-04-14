@@ -13,7 +13,13 @@ function genReportSection(container, title) {
   return sectionHeader;
 }
 
-async function genReportLog(container, env, { key, url, label, method, type }) {
+async function genStatusStreamFromLog(container, data, { key, label, type }) {
+  // console.log("kk", data, key, label, type);
+  const statusStream = constructStatusStream(key, label, type, data);
+  container.appendChild(statusStream);
+}
+
+async function genReportLog(env, { key, type }) {
   const response = await fetch(
     "logs/" + env + "/" + type + "/" + key + "_report.log"
   );
@@ -23,16 +29,7 @@ async function genReportLog(container, env, { key, url, label, method, type }) {
     statusLines = await response.text();
   }
 
-  const normalized = normalizeData(statusLines);
-  const statusStream = constructStatusStream(
-    key,
-    label,
-    url,
-    type,
-    method,
-    normalized
-  );
-  container.appendChild(statusStream);
+  return normalizeData(statusLines);
 }
 
 function constructSection(title) {
@@ -41,7 +38,8 @@ function constructSection(title) {
   });
 }
 
-function constructStatusStream(key, label, url, type, method, uptimeData) {
+function constructStatusStream(key, label, type, uptimeData) {
+  // console.log(key, label, type, uptimeData);
   let streamContainer = templatize("statusStreamContainerTemplate");
   for (var ii = maxDays - 1; ii >= 0; ii--) {
     let line = constructStatusLine(key, ii, uptimeData[ii]);
@@ -53,9 +51,7 @@ function constructStatusStream(key, label, url, type, method, uptimeData) {
 
   const container = templatize("statusContainerTemplate", {
     title: label,
-    url: url,
     color: color,
-    method: `[ ${method} ]`,
     src: `${type}.svg`,
     status: getStatusText(color),
     upTime: uptimeData.upTime,
@@ -79,7 +75,7 @@ function getColor(uptimeVal) {
     ? "success"
     : uptimeVal < 0.3
     ? "failure"
-    : "warn";
+    : "partial";
 }
 
 function constructStatusSquare(key, date, uptimeVal) {
@@ -147,8 +143,8 @@ function getStatusText(color) {
     ? "Fully Operational"
     : color == "failure"
     ? "Major Outage"
-    : color == "warn"
-    ? "Partial Outage"
+    : color == "partial"
+    ? "Outage Warning"
     : "Unknown";
 }
 
@@ -159,8 +155,8 @@ function getStatusDescriptiveText(color) {
     ? "No downtime recorded on this day."
     : color == "failure"
     ? "Major outages recorded on this day."
-    : color == "warn"
-    ? "Partial outages recorded on this day."
+    : color == "partial"
+    ? "Outage warning recorded on this day."
     : "Unknown";
 }
 
@@ -185,7 +181,6 @@ function normalizeData(statusLines) {
     if (key == "upTime") {
       continue;
     }
-
     const relDays = getRelativeDays(now, new Date(key).getTime());
     relativeDateMap[relDays] = getDayAverage(val);
   }
@@ -198,7 +193,12 @@ function getDayAverage(val) {
   if (!val || val.length == 0) {
     return null;
   } else {
-    return val.reduce((a, v) => a + v) / val.length;
+    if (val.includes(0)) {
+      return 0;
+    } else if (val.includes(0.5)) {
+      return 0.5;
+    }
+    return 1;
   }
 }
 
@@ -234,6 +234,8 @@ function splitRowsByDate(rows) {
     let result = 0;
     if (resultStr.trim() == "success") {
       result = 1;
+    } else if (resultStr.trim() === "warn") {
+      result = 0.5;
     }
     sum += result;
     count++;
@@ -305,7 +307,8 @@ async function genServiceReport(services, section) {
       if (!service || (service && service.env !== env)) {
         continue;
       }
-      await genReportLog(reportsEl, env, service, partnerId);
+      const log = await genReportLog(env, service, partnerId);
+      await genStatusStreamFromLog(reportsEl, log, service);
     }
     return;
   }
@@ -331,18 +334,64 @@ async function genServiceReport(services, section) {
     }
   );
 
-  // Object.keys(subServices).map(async (subService) => {
-  //   for (let ii = 0; ii < subServices[subService].length; ii++) {
-  //     const service = subServices[subService][ii];
-  //     if (!service || (service && service.env !== env)) {
-  //       continue;
-  //     }
-  //     const containerEl = document.createElement("div");
-  //     containerEl.style = "padding: 10px 0";
-  //     sectionEl.parentNode.insertBefore(containerEl, sectionEl.nextSibling);
-  //     await genReportLog(containerEl, env, service, partnerId);
-  //   }
-  // });
+  const groups = {
+    auth: {
+      service: {
+        key: "authGroup",
+        label: "Auth",
+        type: "api",
+      },
+    },
+    accounts: {
+      service: {
+        key: "accountsGroup",
+        label: "Acccounts",
+        type: "api",
+      },
+    },
+    links: {
+      service: {
+        key: "linksGroup",
+        label: "Links",
+        type: "api",
+      },
+    },
+    transfers: {
+      service: {
+        key: "transfersGroup",
+        label: "Transfers",
+        type: "api",
+      },
+    },
+  };
+
+  await Promise.all(
+    Object.keys(subServices).map(async (subService) => {
+      for (let ii = 0; ii < subServices[subService].length; ii++) {
+        const service = subServices[subService][ii];
+        if (!service || (service && service.env !== env)) {
+          continue;
+        }
+        const log = await genReportLog(env, service, partnerId);
+        Object.keys(log).forEach((key) => {
+          if (
+            groups[subService][key] !== 0 ||
+            groups[subService][key] > log[key]
+          ) {
+            groups[subService][key] = log[key];
+          }
+        });
+      }
+    })
+  );
+
+  Object.keys(groups).forEach(async (group) => {
+    await genStatusStreamFromLog(
+      reportsEl,
+      groups[group],
+      groups[group].service
+    );
+  });
 }
 
 async function genAllReports() {
