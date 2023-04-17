@@ -413,6 +413,15 @@ footer a {
   }
 }
 
+.incidentsHeadline {
+  text-align: left;
+  font-size: 18px;
+}
+
+.incidentsText {
+  text-align: left;
+}
+
 @media screen and (max-width: 915px) {
   .pageContainer {
     border-radius: 0;

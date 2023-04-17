@@ -13,6 +13,14 @@ function genReportSection(container, title) {
   return sectionHeader;
 }
 
+function genIncidentsSection(container, title) {
+  const sectionHeader = constructSection(title);
+  if (!sectionHeader) return;
+  sectionHeader.style.display = "flex";
+  container.appendChild(sectionHeader);
+  return sectionHeader;
+}
+
 async function genStatusStreamFromLog(container, data, { key, label, type }) {
   // console.log("kk", data, key, label, type);
   const statusStream = constructStatusStream(key, label, type, data);
@@ -415,6 +423,11 @@ async function genAllReports() {
   await genServiceReport(webServices, "web");
   await genServiceReport(apiServices, "api");
   setLoader(false);
+}
+
+async function genAllIncidents() {
+  const reportsEl = document.getElementById("reports");
+  genReportSection(reportsEl, "incidents");
 }
 
 function onTabClick(_, env) {

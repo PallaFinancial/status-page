@@ -23,6 +23,10 @@
       <button id="sandboxTab" class="tablinks" onclick="onTabClick(event, 'sandbox')">Sandbox</button>
     </div>
     <article id="reports" class="reportContainer">
+      <section id="incidentsTemplate" class="incidentsContainer" style="display: none">
+        <h2 id="incidentsHeadline" class="incidentsHeadline">$incident_title | <span>$incident_date</span></h2>
+        <p id="incidentsText" class="incidentsText">$incident_text</p>
+      </section>
       <div id="tooltip" class="tooltip" style="opacity: 0">
         <div id="tooltipArrow" class="tooltipArrow"></div>
         <div id="tooltipDateTime" class="tooltipDateTime"></div>
@@ -54,6 +58,7 @@
 
 </html>
 <script>
+  genAllIncidents();
   genAllReports();
   setTabStyle();
 </script>
