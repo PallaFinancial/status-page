@@ -394,15 +394,27 @@ async function genServiceReport(services, section) {
   });
 }
 
+function setLoader(show) {
+  const loader = document.getElementById("loaderContainer");
+  const reports = document.getElementById("reports");
+  if (show) {
+    loader.style.display = "flex";
+    reports.style.opacity = 0.5;
+  } else {
+    loader.style.display = "none";
+    reports.style.opacity = 1;
+  }
+}
+
 async function genAllReports() {
+  setLoader(true);
   const res = await fetch("config.json");
   const config = await res.json();
-
   const apiServices = config.filter((item) => item.meta.tags.includes("api"));
   const webServices = config.filter((item) => item.meta.tags.includes("web"));
-
   await genServiceReport(webServices, "web");
   await genServiceReport(apiServices, "api");
+  setLoader(false);
 }
 
 function onTabClick(_, env) {
