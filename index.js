@@ -13,6 +13,14 @@ function genReportSection(container, title) {
   return sectionHeader;
 }
 
+function genIncidentsSection(container, title) {
+  const sectionHeader = constructSection(title);
+  if (!sectionHeader) return;
+  sectionHeader.style.display = "flex";
+  container.appendChild(sectionHeader);
+  return sectionHeader;
+}
+
 async function genStatusStreamFromLog(container, data, { key, label, type }) {
   // console.log("kk", data, key, label, type);
   const statusStream = constructStatusStream(key, label, type, data);
@@ -394,15 +402,32 @@ async function genServiceReport(services, section) {
   });
 }
 
+function setLoader(show) {
+  const loader = document.getElementById("loaderContainer");
+  const page = document.getElementById("pageContainer");
+  if (show) {
+    loader.style.display = "flex";
+    page.style.opacity = 0.5;
+  } else {
+    loader.style.display = "none";
+    page.style.opacity = 1;
+  }
+}
+
 async function genAllReports() {
+  setLoader(true);
   const res = await fetch("config.json");
   const config = await res.json();
-
   const apiServices = config.filter((item) => item.meta.tags.includes("api"));
   const webServices = config.filter((item) => item.meta.tags.includes("web"));
-
   await genServiceReport(webServices, "web");
   await genServiceReport(apiServices, "api");
+  setLoader(false);
+}
+
+async function genAllIncidents() {
+  const reportsEl = document.getElementById("reports");
+  genReportSection(reportsEl, "incidents");
 }
 
 function onTabClick(_, env) {
