@@ -9,7 +9,10 @@
 </head>
 
 <body>
-  <main class="pageContainer">
+  <div id="loaderContainer">
+    <div class="loader"></div>
+  </div>
+  <main id="pageContainer" class="pageContainer">
     <div class="headline">
       <img src="logo.svg" alt="Logo" />
       <h2> System Status </h2>
@@ -18,9 +21,6 @@
       <button id="productionTab" class="tablinks" onclick="onTabClick(event, 'production')">Production</button>
       <button id="live-testTab" class="tablinks" onclick="onTabClick(event, 'live-test')">Live Test</button>
       <button id="sandboxTab" class="tablinks" onclick="onTabClick(event, 'sandbox')">Sandbox</button>
-    </div>
-    <div id="loaderContainer">
-      <div class="loader"></div>
     </div>
     <article id="reports" class="reportContainer">
       <div id="tooltip" class="tooltip" style="opacity: 0">

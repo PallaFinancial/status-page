@@ -396,13 +396,13 @@ async function genServiceReport(services, section) {
 
 function setLoader(show) {
   const loader = document.getElementById("loaderContainer");
-  const reports = document.getElementById("reports");
+  const page = document.getElementById("pageContainer");
   if (show) {
     loader.style.display = "flex";
-    reports.style.opacity = 0.5;
+    page.style.opacity = 0.5;
   } else {
     loader.style.display = "none";
-    reports.style.opacity = 1;
+    page.style.opacity = 1;
   }
 }
 
