@@ -51,6 +51,8 @@ async function genIncidentLog(env, { key, type }) {
     "logs/" + env + "/" + type + "/" + key + "_incident.log"
   );
 
+  if (!response.ok) return;
+
   let statusLines = "";
   if (response.ok) {
     statusLines = await response.text();
@@ -519,20 +521,21 @@ async function genAllReports() {
 
 async function genIncidentReport(services) {
   if (!services || (services && services.length < 1)) return;
-  const { env, partnerId } = getEnv();
+  const { env } = getEnv();
   const reportsEl = document.getElementById("reports");
 
   genReportSection(reportsEl, "incidents");
 
   for (let ii = 0; ii < services.length; ii++) {
     const service = services[ii];
+    console.log(service);
     if (!service || (service && service.env !== env)) {
       continue;
     }
     const log = await genIncidentLog(env, service);
+    console.log("hmmm");
     if (!log) return;
     await genIncidenStreamFromLog(reportsEl, log, service);
-    // await genStatusStreamFromLog(reportsEl, log, service);
   }
 }
 
