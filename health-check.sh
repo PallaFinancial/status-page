@@ -15,7 +15,6 @@ URLSARRAY=()
 METHODSARRAY=()
 ENVARRAY=()
 TYPESARRAY=()
-
 urlsConfig="./config.json"
 
 echo "Reading $urlsConfig"
@@ -77,15 +76,15 @@ do
     else
       result="failed"
     fi
-    if [ "$result" = "failed" ]; then
+    if [ "$result" = "success" ]; then
+      echo "Success"
       break
     else
-      echo "I failed"
       echo $dateTime, $result >> "logs/${env}/${type}/${key}_incident.log"
-      # curl -X POST -H 'Content-type: application/json' -s --data '{"text":"SERVICE DOWN ALERT","blocks":[{"type":"section","block_id":"section567","text":{"type":"mrkdwn","text":"<https://pallafinancial.github.io/statuspage|Status Page> \nService '$key' is currently experiencing downtime."},"accessory":{"type":"image","image_url":"https://pbs.twimg.com/media/E7liAZbWQAchl5u.jpg","alt_text":"STONE COLD WITH THE FOLDING CHAIR"}}]}' $SLACK_WEBHOOK_URL
+      echo "Failure"
+      echo $(curl -X POST -H 'Content-type: application/json' -s --data '{"text":"SERVICE DOWN ALERT","blocks":[{"type":"section","block_id":"section567","text":{"type":"mrkdwn","text":"<https://pallafinancial.github.io/status-page|Status Page> \nService '$key' in '$env' is currently experiencing downtime."},"accessory":{"type":"image","image_url":"https://pbs.twimg.com/media/E7liAZbWQAchl5u.jpg","alt_text":"STONE COLD WITH THE FOLDING CHAIR"}}]}' "$SLACK_WEBHOOK_URL")
       break
     fi
-    sleep 5
   done
   if [[ $commit == true ]]
   then

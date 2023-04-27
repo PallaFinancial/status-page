@@ -22,9 +22,15 @@ function genIncidentsSection(container, title) {
 }
 
 async function genStatusStreamFromLog(container, data, { key, label, type }) {
-  // console.log("kk", data, key, label, type);
   const statusStream = constructStatusStream(key, label, type, data);
   container.appendChild(statusStream);
+}
+
+async function genIncidenStreamFromLog(container, data, { key, label, type }) {
+  const incidentStream = constructIncidentStatusStream(key, label, type, data);
+  incidentStream.forEach((stream) => {
+    container.appendChild(stream);
+  });
 }
 
 async function genReportLog(env, { key, type }) {
@@ -40,6 +46,21 @@ async function genReportLog(env, { key, type }) {
   return normalizeData(statusLines);
 }
 
+async function genIncidentLog(env, { key, type }) {
+  const response = await fetch(
+    "logs/" + env + "/" + type + "/" + key + "_incident.log"
+  );
+
+  let statusLines = "";
+  if (response.ok) {
+    statusLines = await response.text();
+  }
+
+  if (!statusLines.length) return;
+
+  return normalizeIncidentData(statusLines);
+}
+
 function constructSection(title) {
   return templatize("sectionTemplate", {
     section_title: title.toUpperCase(),
@@ -47,7 +68,6 @@ function constructSection(title) {
 }
 
 function constructStatusStream(key, label, type, uptimeData) {
-  // console.log(key, label, type, uptimeData);
   let streamContainer = templatize("statusStreamContainerTemplate");
   for (var ii = maxDays - 1; ii >= 0; ii--) {
     let line = constructStatusLine(key, ii, uptimeData[ii]);
@@ -67,6 +87,33 @@ function constructStatusStream(key, label, type, uptimeData) {
 
   container.appendChild(streamContainer);
   return container;
+}
+
+function constructIncidentStatusStream(key, label, type, data) {
+  let incidents = [];
+  Object.keys(data).forEach((date) => {
+    if (!data[date]) return;
+    data[date].forEach((status) => {
+      if (status.result === "success") return;
+      const formatedDate = new Date(status.time);
+      incidents.push({
+        date: `${formatedDate.toLocaleDateString({
+          timezone: "America/New_York",
+        })} ${formatedDate.toLocaleTimeString({
+          timeazone: "America/New_York",
+        })} EST`,
+        status: status.result,
+      });
+    });
+  });
+
+  return incidents.map((incident) => {
+    return templatize("incidentTemplate", {
+      status: incident.status,
+      date: incident.date,
+      description: `${key} ${type}`,
+    });
+  });
 }
 
 function constructStatusLine(key, relDay, upTimeArray) {
@@ -197,6 +244,11 @@ function normalizeData(statusLines) {
   return relativeDateMap;
 }
 
+function normalizeIncidentData(statusLines) {
+  const rows = statusLines.split("\n");
+  return splitIncidentRowsByDate(rows);
+}
+
 function getDayAverage(val) {
   if (!val || val.length == 0) {
     return null;
@@ -253,6 +305,45 @@ function splitRowsByDate(rows) {
 
   const upTime = count ? ((sum / count) * 100).toFixed(2) + "%" : "--%";
   dateValues.upTime = upTime;
+  return dateValues;
+}
+
+function splitIncidentRowsByDate(rows) {
+  let dateValues = {};
+  let sum = 0,
+    count = 0;
+  for (var ii = 0; ii < rows.length; ii++) {
+    const row = rows[ii];
+    if (!row) {
+      continue;
+    }
+
+    const [dateTimeStr, resultStr] = row.split(",", 2);
+    const dateTime = new Date(
+      Date.parse(dateTimeStr.replace(/-/g, "/") + " GMT")
+    );
+    const dateStr = dateTime.toDateString();
+
+    let resultArray = dateValues[dateStr];
+    if (!resultArray) {
+      resultArray = [];
+      dateValues[dateStr] = resultArray;
+      if (dateValues.length > maxDays) {
+        break;
+      }
+    }
+
+    let result = "success";
+    if (resultStr.trim() == "failure") {
+      result = "failure";
+    } else if (resultStr.trim() === "warn") {
+      result = "warn";
+    }
+    sum += result;
+    count++;
+    resultArray.push({ result, time: dateTime });
+  }
+
   return dateValues;
 }
 
@@ -315,7 +406,7 @@ async function genServiceReport(services, section) {
       if (!service || (service && service.env !== env)) {
         continue;
       }
-      const log = await genReportLog(env, service, partnerId);
+      const log = await genReportLog(env, service);
       await genStatusStreamFromLog(reportsEl, log, service);
     }
     return;
@@ -380,7 +471,7 @@ async function genServiceReport(services, section) {
         if (!service || (service && service.env !== env)) {
           continue;
         }
-        const log = await genReportLog(env, service, partnerId);
+        const log = await genReportLog(env, service);
         Object.keys(log).forEach((key) => {
           if (
             groups[subService][key] !== 0 ||
@@ -426,9 +517,27 @@ async function genAllReports() {
   setLoader(false);
 }
 
-async function genAllIncidents(config) {
+async function genIncidentReport(services) {
+  if (!services || (services && services.length < 1)) return;
+  const { env, partnerId } = getEnv();
   const reportsEl = document.getElementById("reports");
-  console.log(config);
+
+  genReportSection(reportsEl, "incidents");
+
+  for (let ii = 0; ii < services.length; ii++) {
+    const service = services[ii];
+    if (!service || (service && service.env !== env)) {
+      continue;
+    }
+    const log = await genIncidentLog(env, service);
+    if (!log) return;
+    await genIncidenStreamFromLog(reportsEl, log, service);
+    // await genStatusStreamFromLog(reportsEl, log, service);
+  }
+}
+
+async function genAllIncidents(config) {
+  await genIncidentReport(config);
 }
 
 function onTabClick(_, env) {

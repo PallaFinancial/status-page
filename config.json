@@ -20,5 +20,776 @@
     "meta": {
       "tags": ["GET", "web", "live-test"]
     }
+  },
+  {
+    "label": "Palla Checkout Production Web",
+    "key": "pallaPartnerClientExchange",
+    "url": "https://checkout.palla.app",
+    "method": "GET",
+    "env": "production",
+    "type": "web",
+    "meta": {
+      "tags": ["GET", "web", "production"]
+    }
+  },
+
+  {
+    "label": "Palla Partner Client Exchange",
+    "key": "pallaPartnerClientExchange",
+    "url": "https://api.platform.palla.app/health/v1/auth/token",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "auth"]
+    }
+  },
+  {
+    "label": "Palla Partner Client Exchange",
+    "key": "pallaPartnerClientExchange",
+    "url": "https://api.sandbox.palla.app/health/v1/auth/token",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "auth"]
+    }
+  },
+  {
+    "label": "Palla Partner Client Exchange",
+    "key": "pallaPartnerClientExchange",
+    "url": "https://api.test.palla.app/health/v1/auth/token",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "auth"]
+    }
+  },
+  {
+    "label": "Palla User Auth",
+    "key": "pallaUserAuth",
+    "url": "https://api.platform.palla.app/health/v1/auth",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "auth"]
+    }
+  },
+  {
+    "label": "Palla User Auth",
+    "key": "pallaUserAuth",
+    "url": "https://api.sandbox.palla.app/health/v1/auth",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "auth"]
+    }
+  },
+  {
+    "label": "Palla User Auth",
+    "key": "pallaUserAuth",
+    "url": "https://api.test.palla.app/health/v1/auth",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "auth"]
+    }
+  },
+  {
+    "label": "Palla User Auth Verify",
+    "key": "pallaUserAuthVerify",
+    "url": "https://api.platform.palla.app/health/v1/auth/verify",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "auth"]
+    }
+  },
+  {
+    "label": "Palla User Auth Verify",
+    "key": "pallaUserAuthVerify",
+    "url": "https://api.sandbox.palla.app/health/v1/auth/verify",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "auth"]
+    }
+  },
+  {
+    "label": "Palla User Auth Verify",
+    "key": "pallaUserAuthVerify",
+    "url": "https://api.test.palla.app/health/v1/auth/verify",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "auth"]
+    }
+  },
+  {
+    "label": "Create Account",
+    "key": "createAccount",
+    "url": "https://api.platform.palla.app/health/v1/accounts",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Create Account",
+    "key": "createAccount",
+    "url": "https://api.sandbox.palla.app/health/v1/accounts",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Create Account",
+    "key": "createAccount",
+    "url": "https://api.test.palla.app/health/v1/accounts",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Create Identity",
+    "key": "createIdentity",
+    "url": "https://api.platform.palla.app/health/v1/identity",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Create Identity",
+    "key": "createIdentity",
+    "url": "https://api.sandbox.palla.app/health/v1/identity",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Create Identity",
+    "key": "createIdentity",
+    "url": "https://api.test.palla.app/health/v1/identity",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Fetch Account Details",
+    "key": "fetchAccountDetails",
+    "url": "https://api.platform.palla.app/health/v1/accounts",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Fetch Account Details",
+    "key": "fetchAccountDetails",
+    "url": "https://api.sandbox.palla.app/health/v1/accounts",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Fetch Account Details",
+    "key": "fetchAccountDetails",
+    "url": "https://api.test.palla.app/health/v1/accounts",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Create Identity Verification",
+    "key": "createIdentityVerification",
+    "url": "https://api.platform.palla.app/health/v1/identity/verifications",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Create Identity Verification",
+    "key": "createIdentityVerification",
+    "url": "https://api.sandbox.palla.app/health/v1/identity/verifications",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Create Identity Verification",
+    "key": "createIdentityVerification",
+    "url": "https://api.test.palla.app/health/v1/identity/verifications",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Get Identity Verifications",
+    "key": "getIdentityVerifications",
+    "url": "https://api.platform.palla.app/health/v1/identity/verifications",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Get Identity Verifications",
+    "key": "getIdentityVerifications",
+    "url": "https://api.sandbox.palla.app/health/v1/identity/verifications",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Get Identity Verifications",
+    "key": "getIdentityVerifications",
+    "url": "https://api.test.palla.app/health/v1/identity/verifications",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Create Challenge",
+    "key": "createChallenge",
+    "url": "https://api.platform.palla.app/health/v1/accounts/challenges",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Create Challenge",
+    "key": "createChallenge",
+    "url": "https://api.sandbox.palla.app/health/v1/accounts/challenges",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Create Challenge",
+    "key": "createChallenge",
+    "url": "https://api.test.palla.app/health/v1/accounts/challenges",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Create Payment Method",
+    "key": "createPaymentMethod",
+    "url": "https://api.platform.palla.app/health/v1/payment-methods",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Create Payment Method",
+    "key": "createPaymentMethod",
+    "url": "https://api.sandbox.palla.app/health/v1/payment-methods",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Create Payment Method",
+    "key": "createPaymentMethod",
+    "url": "https://api.test.palla.app/health/v1/payment-methods",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Update Payment Method",
+    "key": "updatePaymentMethod",
+    "url": "https://api.platform.palla.app/health/v1/payment-methods",
+    "method": "PUT",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["PUT", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Update Payment Method",
+    "key": "updatePaymentMethod",
+    "url": "https://api.sandbox.palla.app/health/v1/payment-methods",
+    "method": "PUT",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["PUT", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Update Payment Method",
+    "key": "updatePaymentMethod",
+    "url": "https://api.test.palla.app/health/v1/payment-methods",
+    "method": "PUT",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["PUT", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "List Payment Methods",
+    "key": "listPaymentMethods",
+    "url": "https://api.platform.palla.app/health/v1/payment-methods",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "List Payment Methods",
+    "key": "listPaymentMethods",
+    "url": "https://api.sandbox.palla.app/health/v1/payment-methods",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "List Payment Methods",
+    "key": "listPaymentMethods",
+    "url": "https://api.test.palla.app/health/v1/payment-methods",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Delete Payment Method",
+    "key": "deletePaymentMethod",
+    "url": "https://api.platform.palla.app/health/v1/payment-methods",
+    "method": "DELETE",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["DELETE", "api", "production", "accounts"]
+    }
+  },
+  {
+    "label": "Delete Payment Method",
+    "key": "deletePaymentMethod",
+    "url": "https://api.sandbox.palla.app/health/v1/payment-methods",
+    "method": "DELETE",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["DELETE", "api", "sandbox", "accounts"]
+    }
+  },
+  {
+    "label": "Delete Payment Method",
+    "key": "deletePaymentMethod",
+    "url": "https://api.test.palla.app/health/v1/payment-methods",
+    "method": "DELETE",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["DELETE", "api", "live-test", "accounts"]
+    }
+  },
+  {
+    "label": "Generate Relationship Link",
+    "key": "generateRelationshipLink",
+    "url": "https://api.platform.palla.app/health/v1/links",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "links"]
+    }
+  },
+  {
+    "label": "Generate Relationship Link",
+    "key": "generateRelationshipLink",
+    "url": "https://api.sandbox.palla.app/health/v1/links",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "links"]
+    }
+  },
+  {
+    "label": "Generate Relationship Link",
+    "key": "generateRelationshipLink",
+    "url": "https://api.test.palla.app/health/v1/links",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "links"]
+    }
+  },
+  {
+    "label": "List Links",
+    "key": "listLinks",
+    "url": "https://api.platform.palla.app/health/v1/links",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "links"]
+    }
+  },
+  {
+    "label": "List Links",
+    "key": "listLinks",
+    "url": "https://api.sandbox.palla.app/health/v1/links",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "links"]
+    }
+  },
+  {
+    "label": "List Links",
+    "key": "listLinks",
+    "url": "https://api.test.palla.app/health/v1/links",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "links"]
+    }
+  },
+  {
+    "label": "Delete Links",
+    "key": "deleteLinks",
+    "url": "https://api.platform.palla.app/health/v1/links",
+    "method": "DELETE",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["DELETE", "api", "production", "links"]
+    }
+  },
+  {
+    "label": "Delete Links",
+    "key": "deleteLinks",
+    "url": "https://api.sandbox.palla.app/health/v1/links",
+    "method": "DELETE",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["DELETE", "api", "sandbox", "links"]
+    }
+  },
+  {
+    "label": "Delete Links",
+    "key": "deleteLinks",
+    "url": "https://api.test.palla.app/health/v1/links",
+    "method": "DELETE",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["DELETE", "api", "live-test", "links"]
+    }
+  },
+  {
+    "label": "Get Link Relationship",
+    "key": "getLinkRelationship",
+    "url": "https://api.platform.palla.app/health/v1/relationships",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "links"]
+    }
+  },
+  {
+    "label": "Get Link Relationship",
+    "key": "getLinkRelationship",
+    "url": "https://api.sandbox.palla.app/health/v1/relationships",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "links"]
+    }
+  },
+  {
+    "label": "Get Link Relationship",
+    "key": "getLinkRelationship",
+    "url": "https://api.test.palla.app/health/v1/relationships",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "links"]
+    }
+  },
+  {
+    "label": "List Relationships",
+    "key": "listRelationships",
+    "url": "https://api.platform.palla.app/health/v1/relationships",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "links"]
+    }
+  },
+  {
+    "label": "List Relationships",
+    "key": "listRelationships",
+    "url": "https://api.sandbox.palla.app/health/v1/relationships",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "links"]
+    }
+  },
+  {
+    "label": "List Relationships",
+    "key": "listRelationships",
+    "url": "https://api.test.palla.app/health/v1/relationships",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "links"]
+    }
+  },
+  {
+    "label": "Update Relationships",
+    "key": "updateRelationships",
+    "url": "https://api.platform.palla.app/health/v1/relationships",
+    "method": "PUT",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["PUT", "api", "production", "links"]
+    }
+  },
+  {
+    "label": "Update Relationships",
+    "key": "updateRelationships",
+    "url": "https://api.sandbox.palla.app/health/v1/relationships",
+    "method": "PUT",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["PUT", "api", "sandbox", "links"]
+    }
+  },
+  {
+    "label": "Update Relationships",
+    "key": "updateRelationships",
+    "url": "https://api.test.palla.app/health/v1/relationships",
+    "method": "PUT",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["PUT", "api", "live-test", "links"]
+    }
+  },
+  {
+    "label": "Create Transfer",
+    "key": "createTransfer",
+    "url": "https://api.platform.palla.app/health/v1/transfers",
+    "method": "POST",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "production", "transfers"]
+    }
+  },
+  {
+    "label": "Create Transfer",
+    "key": "createTransfer",
+    "url": "https://api.sandbox.palla.app/health/v1/transfers",
+    "method": "POST",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "sandbox", "transfers"]
+    }
+  },
+  {
+    "label": "Create Transfer",
+    "key": "createTransfer",
+    "url": "https://api.test.palla.app/health/v1/transfers",
+    "method": "POST",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["POST", "api", "live-test", "transfers"]
+    }
+  },
+  {
+    "label": "List Transfers",
+    "key": "listTransfers",
+    "url": "https://api.platform.palla.app/health/v1/transfers",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "transfers"]
+    }
+  },
+  {
+    "label": "List Transfers",
+    "key": "listTransfers",
+    "url": "https://api.sandbox.palla.app/health/v1/transfers",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "transfers"]
+    }
+  },
+  {
+    "label": "List Transfers",
+    "key": "listTransfers",
+    "url": "https://api.test.palla.app/health/v1/transfers",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "transfers"]
+    }
+  },
+  {
+    "label": "Get Limits",
+    "key": "getLimits",
+    "url": "https://api.platform.palla.app/health/v1/transfers/limits",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "transfers"]
+    }
+  },
+  {
+    "label": "Get Limits",
+    "key": "getLimits",
+    "url": "https://api.sandbox.palla.app/health/v1/transfers/limits",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "transfers"]
+    }
+  },
+  {
+    "label": "Get Limits",
+    "key": "getLimits",
+    "url": "https://api.test.palla.app/health/v1/transfers/limits",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "transfers"]
+    }
+  },
+  {
+    "label": "Fetch Daily Rate",
+    "key": "fetchDailyRate",
+    "url": "https://api.platform.palla.app/health/v1/fx",
+    "method": "GET",
+    "env": "production",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "production", "transfers"]
+    }
+  },
+  {
+    "label": "Fetch Daily Rate",
+    "key": "fetchDailyRate",
+    "url": "https://api.sandbox.palla.app/health/v1/fx",
+    "method": "GET",
+    "env": "sandbox",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "sandbox", "transfers"]
+    }
+  },
+  {
+    "label": "Fetch Daily Rate",
+    "key": "fetchDailyRate",
+    "url": "https://api.test.palla.app/health/v1/fx",
+    "method": "GET",
+    "env": "live-test",
+    "type": "api",
+    "meta": {
+      "tags": ["GET", "api", "live-test", "transfers"]
+    }
   }
 ]
