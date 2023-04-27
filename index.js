@@ -278,6 +278,8 @@ function splitRowsByDate(rows) {
       continue;
     }
 
+    console.log(row);
+
     const [dateTimeStr, resultStr] = row.split(",", 2);
     const dateTime = new Date(
       Date.parse(dateTimeStr.replace(/-/g, "/") + " GMT")
@@ -294,6 +296,7 @@ function splitRowsByDate(rows) {
     }
 
     let result = 0;
+    console.log(resultStr);
     if (resultStr.trim() == "success") {
       result = 1;
     } else if (resultStr.trim() === "warn") {
