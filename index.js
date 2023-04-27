@@ -528,12 +528,10 @@ async function genIncidentReport(services) {
 
   for (let ii = 0; ii < services.length; ii++) {
     const service = services[ii];
-    console.log(service);
     if (!service || (service && service.env !== env)) {
       continue;
     }
     const log = await genIncidentLog(env, service);
-    console.log("hmmm");
     if (!log) return;
     await genIncidenStreamFromLog(reportsEl, log, service);
   }
