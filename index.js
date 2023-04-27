@@ -353,7 +353,7 @@ async function genServiceReport(services, section) {
     accounts: {
       service: {
         key: "accountsGroup",
-        label: "Acccounts",
+        label: "Accounts",
         type: "api",
       },
     },
@@ -422,12 +422,13 @@ async function genAllReports() {
   const webServices = config.filter((item) => item.meta.tags.includes("web"));
   await genServiceReport(webServices, "web");
   await genServiceReport(apiServices, "api");
+  await genAllIncidents(config);
   setLoader(false);
 }
 
-async function genAllIncidents() {
+async function genAllIncidents(config) {
   const reportsEl = document.getElementById("reports");
-  genReportSection(reportsEl, "incidents");
+  console.log(config);
 }
 
 function onTabClick(_, env) {

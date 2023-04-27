@@ -15,7 +15,7 @@
   <main id="pageContainer" class="pageContainer">
     <div class="headline">
       <img src="logo.svg" alt="Logo" />
-      <h2> System Status </h2>
+      <h2> Systems Status </h2>
     </div>
     <div class="tab">
       <button id="productionTab" class="tablinks" onclick="onTabClick(event, 'production')">Production</button>
@@ -58,9 +58,10 @@
 
 </html>
 <script>
-  genAllIncidents();
-  genAllReports();
-  setTabStyle();
+  (async () => {
+    await genAllReports();
+    setTabStyle();
+  })();
 </script>
 
 </html>

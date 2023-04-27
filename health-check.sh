@@ -58,6 +58,7 @@ do
   method="${METHODSARRAY[index]}"
   env="${ENVARRAY[index]}"
   type="${TYPESARRAY[index]}"
+  dateTime=$(TZ=America/New_York date +'%Y-%m-%d %H:%M')
 
   echo "  $key=$url=$method"
 
@@ -76,15 +77,16 @@ do
     else
       result="failed"
     fi
-    if [ "$result" = "success" ]; then
+    if [ "$result" = "failed" ]; then
       break
     else
-      curl -X POST -H 'Content-type: application/json' -s --data '{"text":"SERVICE DOWN ALERT","blocks":[{"type":"section","block_id":"section567","text":{"type":"mrkdwn","text":"<https://pallafinancial.github.io/statuspage|Status Page> \nService '$key' is currently experiencing downtime."},"accessory":{"type":"image","image_url":"https://pbs.twimg.com/media/E7liAZbWQAchl5u.jpg","alt_text":"STONE COLD WITH THE FOLDING CHAIR"}}]}' $SLACK_WEBHOOK_URL
+      echo "I failed"
+      echo $dateTime, $result >> "logs/${env}/${type}/${key}_incident.log"
+      # curl -X POST -H 'Content-type: application/json' -s --data '{"text":"SERVICE DOWN ALERT","blocks":[{"type":"section","block_id":"section567","text":{"type":"mrkdwn","text":"<https://pallafinancial.github.io/statuspage|Status Page> \nService '$key' is currently experiencing downtime."},"accessory":{"type":"image","image_url":"https://pbs.twimg.com/media/E7liAZbWQAchl5u.jpg","alt_text":"STONE COLD WITH THE FOLDING CHAIR"}}]}' $SLACK_WEBHOOK_URL
       break
     fi
     sleep 5
   done
-  dateTime=$(TZ=America/New_York date +'%Y-%m-%d %H:%M')
   if [[ $commit == true ]]
   then
     echo $dateTime, $result >> "logs/${env}/${type}/${key}_report.log"
