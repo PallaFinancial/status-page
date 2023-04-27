@@ -110,11 +110,13 @@ function constructIncidentStatusStream(key, label, type, data) {
   });
 
   return incidents.map((incident) => {
-    return templatize("incidentTemplate", {
+    const template = templatize("incidentTemplate", {
       status: incident.status,
       date: incident.date,
       description: `${key} ${type}`,
     });
+    template.style.display = "block";
+    return template;
   });
 }
 
@@ -294,7 +296,6 @@ function splitRowsByDate(rows) {
     }
 
     let result = 0;
-    console.log(resultStr);
     if (resultStr.trim() == "success") {
       result = 1;
     } else if (resultStr.trim() === "warn") {
