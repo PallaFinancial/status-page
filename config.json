@@ -663,7 +663,7 @@
   {
     "label": "Create Transfer",
     "key": "createTransfer",
-    "url": "https://api.platform.palla.app/health/v1/transfers",
+    "url": "https://api.platform.palla.app/health/v2/transfers",
     "method": "POST",
     "env": "production",
     "type": "api",
@@ -674,7 +674,7 @@
   {
     "label": "Create Transfer",
     "key": "createTransfer",
-    "url": "https://api.sandbox.palla.app/health/v1/transfers",
+    "url": "https://api.sandbox.palla.app/health/v2/transfers",
     "method": "POST",
     "env": "sandbox",
     "type": "api",
@@ -685,7 +685,7 @@
   {
     "label": "Create Transfer",
     "key": "createTransfer",
-    "url": "https://api.test.palla.app/health/v1/transfers",
+    "url": "https://api.test.palla.app/health/v2/transfers",
     "method": "POST",
     "env": "live-test",
     "type": "api",
