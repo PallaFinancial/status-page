@@ -729,7 +729,7 @@
   {
     "label": "Get Limits",
     "key": "getLimits",
-    "url": "https://api.platform.palla.app/health/v1/transfers/limits",
+    "url": "https://api.platform.palla.app/health/v1/transfers/quotes",
     "method": "GET",
     "env": "production",
     "type": "api",
@@ -740,7 +740,7 @@
   {
     "label": "Get Limits",
     "key": "getLimits",
-    "url": "https://api.sandbox.palla.app/health/v1/transfers/limits",
+    "url": "https://api.sandbox.palla.app/health/v1/transfers/quotes",
     "method": "GET",
     "env": "sandbox",
     "type": "api",
@@ -751,40 +751,7 @@
   {
     "label": "Get Limits",
     "key": "getLimits",
-    "url": "https://api.test.palla.app/health/v1/transfers/limits",
-    "method": "GET",
-    "env": "live-test",
-    "type": "api",
-    "meta": {
-      "tags": ["GET", "api", "live-test", "transfers"]
-    }
-  },
-  {
-    "label": "Fetch Daily Rate",
-    "key": "fetchDailyRate",
-    "url": "https://api.platform.palla.app/health/v1/fx",
-    "method": "GET",
-    "env": "production",
-    "type": "api",
-    "meta": {
-      "tags": ["GET", "api", "production", "transfers"]
-    }
-  },
-  {
-    "label": "Fetch Daily Rate",
-    "key": "fetchDailyRate",
-    "url": "https://api.sandbox.palla.app/health/v1/fx",
-    "method": "GET",
-    "env": "sandbox",
-    "type": "api",
-    "meta": {
-      "tags": ["GET", "api", "sandbox", "transfers"]
-    }
-  },
-  {
-    "label": "Fetch Daily Rate",
-    "key": "fetchDailyRate",
-    "url": "https://api.test.palla.app/health/v1/fx",
+    "url": "https://api.test.palla.app/health/v1/transfers/quotes",
     "method": "GET",
     "env": "live-test",
     "type": "api",
