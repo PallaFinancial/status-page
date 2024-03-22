@@ -730,33 +730,33 @@
     "label": "Get Limits",
     "key": "getLimits",
     "url": "https://api.platform.palla.app/health/v1/transfers/quotes",
-    "method": "GET",
+    "method": "POST",
     "env": "production",
     "type": "api",
     "meta": {
-      "tags": ["GET", "api", "production", "transfers"]
+      "tags": ["POST", "api", "production", "transfers"]
     }
   },
   {
     "label": "Get Limits",
     "key": "getLimits",
     "url": "https://api.sandbox.palla.app/health/v1/transfers/quotes",
-    "method": "GET",
+    "method": "POST",
     "env": "sandbox",
     "type": "api",
     "meta": {
-      "tags": ["GET", "api", "sandbox", "transfers"]
+      "tags": ["POST", "api", "sandbox", "transfers"]
     }
   },
   {
     "label": "Get Limits",
     "key": "getLimits",
     "url": "https://api.test.palla.app/health/v1/transfers/quotes",
-    "method": "GET",
+    "method": "POST",
     "env": "live-test",
     "type": "api",
     "meta": {
-      "tags": ["GET", "api", "live-test", "transfers"]
+      "tags": ["POST", "api", "live-test", "transfers"]
     }
   }
 ]
