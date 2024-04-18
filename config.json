@@ -729,7 +729,7 @@
   {
     "label": "Get Limits",
     "key": "getLimits",
-    "url": "https://api.platform.palla.app/health/v1/transfers/quotes",
+    "url": "https://api.platform.palla.app/health/v1/quotes/transfers",
     "method": "POST",
     "env": "production",
     "type": "api",
@@ -740,7 +740,7 @@
   {
     "label": "Get Limits",
     "key": "getLimits",
-    "url": "https://api.sandbox.palla.app/health/v1/transfers/quotes",
+    "url": "https://api.sandbox.palla.app/health/v1/quotes/transfers",
     "method": "POST",
     "env": "sandbox",
     "type": "api",
@@ -751,7 +751,7 @@
   {
     "label": "Get Limits",
     "key": "getLimits",
-    "url": "https://api.test.palla.app/health/v1/transfers/quotes",
+    "url": "https://api.test.palla.app/health/v1/quotes/transfers",
     "method": "POST",
     "env": "live-test",
     "type": "api",
