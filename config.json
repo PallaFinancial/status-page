@@ -628,39 +628,6 @@
     }
   },
   {
-    "label": "Update Relationships",
-    "key": "updateRelationships",
-    "url": "https://api.platform.palla.app/health/v1/relationships",
-    "method": "PUT",
-    "env": "production",
-    "type": "api",
-    "meta": {
-      "tags": ["PUT", "api", "production", "links"]
-    }
-  },
-  {
-    "label": "Update Relationships",
-    "key": "updateRelationships",
-    "url": "https://api.sandbox.palla.app/health/v1/relationships",
-    "method": "PUT",
-    "env": "sandbox",
-    "type": "api",
-    "meta": {
-      "tags": ["PUT", "api", "sandbox", "links"]
-    }
-  },
-  {
-    "label": "Update Relationships",
-    "key": "updateRelationships",
-    "url": "https://api.test.palla.app/health/v1/relationships",
-    "method": "PUT",
-    "env": "live-test",
-    "type": "api",
-    "meta": {
-      "tags": ["PUT", "api", "live-test", "links"]
-    }
-  },
-  {
     "label": "Create Transfer",
     "key": "createTransfer",
     "url": "https://api.platform.palla.app/health/v2/transfers",
